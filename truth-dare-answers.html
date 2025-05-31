@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Truth or Dare Answers - Lovers Connect</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fff0f6;
+      color: #880e4f;
+      padding: 2rem;
+      max-width: 700px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #d81b60;
+    }
+    .player-section {
+      margin-bottom: 2rem;
+    }
+    .answer-card {
+      background: #fce4ec;
+      border-radius: 15px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 3px 8px rgba(216,27,96,0.2);
+    }
+    .answer-card h3 {
+      margin: 0 0 0.5rem 0;
+      font-weight: 700;
+    }
+    .answer-card p {
+      margin: 0.3rem 0;
+      white-space: pre-wrap;
+    }
+    #clearStorageBtn {
+      display: block;
+      margin: 2rem auto;
+      padding: 0.7rem 1.5rem;
+      background-color: #d81b60;
+      border: none;
+      border-radius: 30px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(216,27,96,0.5);
+      transition: background-color 0.3s ease;
+    }
+    #clearStorageBtn:hover {
+      background-color: #ad1457;
+    }
+    a.back-link {
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+      color: #880e4f;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    a.back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Truth or Dare Answers</h1>
+  <div id="answersContainer"></div>
+  <button id="clearStorageBtn">Clear All Answers</button>
+  <a href="truth-dare.html" class="back-link">← Back to Truth or Dare Game</a>
+
+  <script>
+    const answersContainer = document.getElementById('answersContainer');
+    const clearBtn = document.getElementById('clearStorageBtn');
+
+    function loadAnswers() {
+      const allAnswers = JSON.parse(localStorage.getItem('truthDareAnswers'));
+      answersContainer.innerHTML = '';
+
+      if (!allAnswers || (allAnswers.player1.length === 0 && allAnswers.player2.length === 0)) {
+        answersContainer.innerHTML = '<p>No answers saved yet.</p>';
+        return;
+      }
+
+      ['player1', 'player2'].forEach(playerKey => {
+        const playerAnswers = allAnswers[playerKey];
+        const playerTitle = playerKey === 'player1' ? 'Player 1 Answers' : 'Player 2 Answers';
+
+        const playerSection = document.createElement('div');
+        playerSection.className = 'player-section';
+
+        const heading = document.createElement('h2');
+        heading.textContent = playerTitle;
+        playerSection.appendChild(heading);
+
+        if (playerAnswers.length === 0) {
+          const emptyMsg = document.createElement('p');
+          emptyMsg.textContent = 'No answers yet.';
+          playerSection.appendChild(emptyMsg);
+        } else {
+          playerAnswers.forEach((entry, index) => {
+            const card = document.createElement('div');
+            card.className = 'answer-card';
+
+            const qNumber = document.createElement('h3');
+            qNumber.textContent = `${index + 1}. (${entry.type.toUpperCase()})`;
+
+            const prompt = document.createElement('p');
+            prompt.innerHTML = `<strong>Prompt:</strong> ${entry.prompt}`;
+
+            const answer = document.createElement('p');
+            answer.innerHTML = `<strong>Answer:</strong> ${entry.answer}`;
+
+            card.appendChild(qNumber);
+            card.appendChild(prompt);
+            card.appendChild(answer);
+
+            playerSection.appendChild(card);
+          });
+        }
+        answersContainer.appendChild(playerSection);
+      });
+    }
+
+    clearBtn.addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear all saved answers?')) {
+        localStorage.removeItem('truthDareAnswers');
+        loadAnswers();
+      }
+    });
+
+    // Load answers on page load
+    loadAnswers();
+  </script>
+</body>
+</html>

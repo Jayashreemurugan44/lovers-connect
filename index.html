@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lovers Connect - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      height: 100vh;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', sans-serif;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .form-container {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      animation: popUp 1.2s ease-in-out;
+    }
+    .form-container h1 {
+      color: #e91e63;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 2px solid #e91e63;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+    button {
+      background: #e91e63;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    button:hover {
+      background: #d81b60;
+    }
+
+    @keyframes popUp {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Tell About Your Love 💖</h1>
+    <form id="loveForm">
+      <input type="text" id="name1" placeholder="Your Name" required>
+      <input type="text" id="name2" placeholder="Partner's Name" required>
+      <button type="submit">Start Your Journey 💌</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('loveForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Save names to local storage
+      const n1 = document.getElementById('name1').value.trim();
+      const n2 = document.getElementById('name2').value.trim();
+      if(n1 && n2){
+        localStorage.setItem("person1", n1);
+        localStorage.setItem("person2", n2);
+        window.location.href = "game-session.html";
+      }
+    });
+  </script>
+</body>
+</html>

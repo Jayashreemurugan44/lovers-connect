@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Couple Games</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 15px;
+      box-sizing: border-box;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      color: #d81b60;
+      margin-bottom: 30px;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      animation: zoom 1s ease;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 25px;
+      width: 100%;
+      max-width: 1100px;
+      animation: slideUp 1.2s ease;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-bottom: 15px;
+      user-select: none;
+    }
+
+    .card:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 16px 30px rgba(216, 27, 96, 0.4);
+    }
+
+    .card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-bottom: 2px solid #d81b60;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    .card h3 {
+      margin: 15px 10px 5px;
+      font-size: 1.2rem;
+      color: #d81b60;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes zoom {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Responsive text size */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .card h3 {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome <span id="coupleName"></span> 💑</h1>
+  <div class="gallery">
+    <div class="card" onclick="location.href='memory-game.html'">
+      <img src="https://via.placeholder.com/300x140.png?text=Memory+Game" alt="Memory Game" />
+      <h3>Memory Game</h3>
+    </div>
+    <div class="card" onclick="location.href='love-calculator.html'">
+      <img src="https://via.placeholder.com/300x140.png?text=Love+Calculator" alt="Love Calculator" />
+      <h3>Love Calculator</h3>
+    </div>
+    <div class="card" onclick="location.href='truth-dare.html'">
+      <img src="https://via.placeholder.com/300x140.png?text=Truth+or+Dare" alt="Truth or Dare" />
+      <h3>Truth or Dare</h3>
+    </div>
+    <div class="card" onclick="location.href='compatibility.html'">
+      <img src="https://via.placeholder.com/300x140.png?text=Compatibility+Test" alt="Compatibility Test" />
+      <h3>Compatibility Test</h3>
+    </div>
+    <div class="card" onclick="location.href='quiz.html'">
+      <img src="https://via.placeholder.com/300x140.png?text=Couple+Quiz" alt="Couple Quiz" />
+      <h3>Couple Quiz</h3>
+    </div>
+    <div class="card" onclick="location.href='emoji-guess.html'">
+      <img src="https://via.placeholder.com/300x140.png?text=Emoji+Guess" alt="Emoji Guess" />
+      <h3>Emoji Guess</h3>
+    </div>
+    <div class="card" onclick="location.href='word-scramble.html'">
+      <img src="https://via.placeholder.com/300x140.png?text=Word+Scramble" alt="Word Scramble" />
+      <h3>Word Scramble</h3>
+    </div>
+    <div class="card" onclick="location.href='pic-quiz.html'">
+      <img src="https://via.placeholder.com/300x140.png?text=Picture+Quiz" alt="Picture Quiz" />
+      <h3>Picture Quiz</h3>
+    </div>
+    <div class="card" onclick="location.href='love-story.html'">
+      <img src="https://via.placeholder.com/300x140.png?text=Love+Story" alt="Love Story" />
+      <h3>Love Story</h3>
+    </div>
+    <div class="card" onclick="location.href='date-night.html'">
+      <img src="https://via.placeholder.com/300x140.png?text=Date+Night" alt="Date Night" />
+      <h3>Date Night</h3>
+    </div>
+  </div>
+
+  <script>
+    const p1 = localStorage.getItem("person1");
+    const p2 = localStorage.getItem("person2");
+    document.getElementById("coupleName").textContent = p1 && p2 ? `${p1} & ${p2}` : "Lovebirds";
+  </script>
+</body>
+</html>

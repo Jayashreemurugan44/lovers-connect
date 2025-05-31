@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Lovers Connect</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    form {
+      max-width: 400px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    input[type='text'] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    input[type='submit'] {
+      background-color: #e91e63;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    input[type='submit']:hover {
+      background-color: #c2185b;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Lovers Connect 💕</h1>
+  <form onsubmit="return validateForm()">
+    <label for="partner1">Your Name:</label>
+    <input type="text" id="partner1" name="partner1" required>
+
+    <label for="partner2">Partner's Name:</label>
+    <input type="text" id="partner2" name="partner2" required>
+
+    <input type="submit" value="Start Journey">
+  </form>
+
+  <script>
+    function validateForm() {
+      const name1 = document.getElementById('partner1').value.trim();
+      const name2 = document.getElementById('partner2').value.trim();
+      if (name1 !== '' && name2 !== '') {
+        window.location.href = 'index.html';
+        return false;
+      }
+      return false;
+    }
+  </script>
+</body>
+</html>

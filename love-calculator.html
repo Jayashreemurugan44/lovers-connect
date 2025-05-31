@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Love Calculator</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #fff0f5;
+      text-align: center;
+      padding: 20px;
+      color: #d63384;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .question-box {
+      margin: 30px auto;
+      background: #ffe6f0;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 500px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    textarea {
+      width: 90%;
+      height: 80px;
+      margin-top: 10px;
+      border-radius: 8px;
+      padding: 10px;
+      border: 1px solid #d63384;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #d63384;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .results {
+      margin-top: 40px;
+      text-align: left;
+      width: 80%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #fff;
+      border: 2px solid #d63384;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .result-box {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>💘 Love Calculator 💘</h1>
+  <div class="question-box" id="questionBox">
+    <h3 id="questionText">Loading...</h3>
+    <textarea id="answer" placeholder="Type your answer here..."></textarea><br>
+    <button onclick="submitAnswer()">Submit</button>
+  </div>
+
+  <div class="results" id="results" style="display: none;">
+    <h2>❤️ Your Love Score: <span id="score"></span>%</h2>
+    <div id="responseList"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        q: "What was our first conversation about?",
+        keywords: ["school", "hi", "name", "funny","premalu"]
+      },
+      {
+        q: "What's your favorite memory with me?",
+        keywords: ["beach", "movie", "walk", "hug", "smile","everything"]
+      },
+      {
+        q: "What do you love most about me?",
+        keywords: ["eyes", "smile", "kind", "sweet", "caring","everything"]
+      },
+      {
+        q: "When do you miss me the most?",
+        keywords: ["night", "alone", "sad", "always","everytime"]
+      },
+      {
+        q: "How would you surprise me on my birthday?",
+        keywords: ["gift", "cake", "party", "surprise", "love letter"]
+      }
+    ];
+
+    let current = 0;
+    let score = 0;
+    const total = questions.length;
+    const answers = [];
+
+    const questionText = document.getElementById("questionText");
+    const answerBox = document.getElementById("answer");
+
+    function loadQuestion() {
+      if (current < total) {
+        questionText.textContent = questions[current].q;
+        answerBox.value = "";
+      }
+    }
+
+    function submitAnswer() {
+      const userAnswer = answerBox.value.trim().toLowerCase();
+      if (userAnswer === "") return;
+
+      // Store answer
+      answers.push({ q: questions[current].q, a: userAnswer });
+localStorage.setItem("loveAnswers", JSON.stringify(answers));
+
+
+
+      // Score calculation based on keyword match
+      const keywords = questions[current].keywords;
+      let localScore = 0;
+      keywords.forEach(keyword => {
+        if (userAnswer.includes(keyword)) localScore += 1;
+      });
+
+      // Normalize local score to max 20 per question
+      score += Math.min(20, localScore * 4);
+
+      current++;
+      if (current < total) {
+        loadQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      document.getElementById("questionBox").style.display = "none";
+      document.getElementById("results").style.display = "block";
+
+      const responseList = document.getElementById("responseList");
+      answers.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "result-box";
+        div.innerHTML = `<strong>Q${index + 1}: ${item.q}</strong><br><em>Answer:</em> ${item.a}`;
+        responseList.appendChild(div);
+      });
+
+      // Final score is out of 100
+      document.getElementById("score").textContent = score;
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>

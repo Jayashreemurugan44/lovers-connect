@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Partner's Love Answers</title>
+</head>
+<body>
+  <h1>❤️ Partner’s Answers ❤️</h1>
+  <div id="allAnswers"></div>
+
+  <script>
+    const saved = JSON.parse(localStorage.getItem("loveAnswers"));
+    const container = document.getElementById("allAnswers");
+
+    if (saved && saved.length > 0) {
+      saved.forEach((item, i) => {
+        const p = document.createElement("p");
+        p.innerHTML = `<strong>Q${i + 1}:</strong> ${item.q}<br><em>Answer:</em> ${item.a}<br><br>`;
+        container.appendChild(p);
+      });
+    } else {
+      container.textContent = "No answers found yet.";
+    }
+  </script>
+</body>
+</html>
